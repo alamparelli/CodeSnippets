@@ -6,7 +6,7 @@
 	<string>snpt_extension_bundle</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>All</string>
+		<string>TopLevel</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>extension Bundle {

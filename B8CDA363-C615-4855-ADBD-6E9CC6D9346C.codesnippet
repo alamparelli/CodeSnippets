@@ -3,32 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>snpt_extension_ShapeStyle</string>
+	<string>snpt_comparable_static_func</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>TopLevel</string>
+		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>extension ShapeStyle where Self == Color {
-    static var darkBackground: Color {
-        Color(red: &lt;#Double#&gt;, green: &lt;#Double#&gt;, blue: &lt;#Double#&gt;)
-    }
-    
-    static var lightBackground: Color {
-        Color(red: &lt;#Double#&gt;, green: &lt;#Double#&gt;, blue: &lt;#Double#&gt;)
-    }
+	<string>public static func &lt; (lhs: &lt;#Type#&gt;, rhs: &lt;#Type#&gt;) -&gt; Bool {
+    return lhs.&lt;#property#&gt; &lt; rhs.&lt;#property#&gt;
 }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>F39F3299-917E-4648-B010-3EF0DA654917</string>
+	<string>B8CDA363-C615-4855-ADBD-6E9CC6D9346C</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>Extension of ShapeStyle to add Colors.XXX</string>
+	<string>Static Function</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Extension - ShapeStyle Background</string>
+	<string>Other - Comparable</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>2</integer>
+	<integer>0</integer>
 </dict>
 </plist>

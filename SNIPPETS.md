@@ -258,6 +258,21 @@ func decodeAPIResponse<T : Codable>(for data: Data) throws -> T {
 
 ---
 
+## Other - Comparable
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_comparable_static_func`  
+**Description:** Static Function  
+**File:** `B8CDA363-C615-4855-ADBD-6E9CC6D9346C.codesnippet`  
+
+```swift
+public static func < (lhs: <#Type#>, rhs: <#Type#>) -> Bool {
+    return lhs.<#property#> < rhs.<#property#>
+}
+```
+
+---
+
 ## Other - DispatchQueueMain
 
 **Language:** Swift  
@@ -336,6 +351,51 @@ struct ContentView: View {
             }
         } else {
             authenticateWithPassword()
+        }
+    }
+}
+```
+
+---
+
+## SwiftData - Store Color
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_swiftdata_store color`  
+**Description:** Exemple of storing a color in SwiftData  
+**File:** `D7134E08-B0DF-4E84-95FE-A39DBFC6943E.codesnippet`  
+
+```swift
+import SwiftData
+
+@Model
+class Item {
+    var red: Double?
+    var green: Double?
+    var blue: Double?
+    var opacity: Double?
+    
+    init(color: Color) {
+        self.red = 0
+        self.green = 0
+        self.blue = 0
+        self.opacity = 1
+        self.color = color // This will set the RGB values
+    }
+    
+    // Computed property for easy Color access
+    var color: Color {
+        get {
+            Color(red: red ?? 0, green: green ?? 0, blue: blue ?? 0, opacity: opacity ?? 1)
+        }
+        set {
+            // Convert Color to RGBA components
+            if let components = UIColor(newValue).cgColor.components {
+                red = Double(components[0])
+                green = Double(components[1])
+                blue = Double(components[2])
+                opacity = Double(components.count > 3 ? components[3] : 1.0)
+            }
         }
     }
 }

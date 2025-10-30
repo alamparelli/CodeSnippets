@@ -6,7 +6,7 @@
 	<string>snpt_extension_UIApplication</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>All</string>
+		<string>TopLevel</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>import Foundation
