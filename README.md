@@ -28,11 +28,3 @@ To use these snippets in Xcode:
 ## 📖 Detailed Documentation
 
 For detailed documentation including the full code of each snippet, see [SNIPPETS.md](./SNIPPETS.md).
-
-## 🔧 Generating Documentation
-
-To regenerate this documentation after adding new snippets:
-
-```bash
-swift generate-doc.swift
-```
