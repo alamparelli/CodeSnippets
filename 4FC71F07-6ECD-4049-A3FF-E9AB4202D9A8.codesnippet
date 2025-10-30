@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_view_blurredImage</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// source : https://stackoverflow.com/questions/68138347/swiftui-add-blur-linear-gradient
+struct &lt;#ImageBlurredView#&gt;: View {    
+    var body: some View {
+        ScrollView {
+            Image("&lt;#image#&gt;") //to be adapted
+                .resizable()
+//                .scaledToFit()
+                .clipped()
+                .frame(maxHeight: &lt;#600#&gt;)
+                .mask {
+                    VStack{
+                        LinearGradient(
+                            colors: [
+                                Color.black.opacity(0),
+                                Color.black.opacity(1),
+                            ],
+                            startPoint: .bottom,
+                            endPoint: .top
+                        )
+                    }
+                }
+
+//            VStack {
+//                Text("Text")
+//                    .foregroundStyle(.white)
+//            }
+        }
+        .background(.black)
+        .ignoresSafeArea(edges: .top)
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>4FC71F07-6ECD-4049-A3FF-E9AB4202D9A8</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>ScrollView with Blurred Image at Top</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>View - ImageBlurredView</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

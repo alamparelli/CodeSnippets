@@ -403,3 +403,46 @@ class Item {
 
 ---
 
+## View - ImageBlurredView
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_view_blurredImage`  
+**Description:** ScrollView with Blurred Image at Top  
+**File:** `4FC71F07-6ECD-4049-A3FF-E9AB4202D9A8.codesnippet`  
+
+```swift
+// source : https://stackoverflow.com/questions/68138347/swiftui-add-blur-linear-gradient
+struct <#ImageBlurredView#>: View {    
+    var body: some View {
+        ScrollView {
+            Image("<#image#>") //to be adapted
+                .resizable()
+//                .scaledToFit()
+                .clipped()
+                .frame(maxHeight: <#600#>)
+                .mask {
+                    VStack{
+                        LinearGradient(
+                            colors: [
+                                Color.black.opacity(0),
+                                Color.black.opacity(1),
+                            ],
+                            startPoint: .bottom,
+                            endPoint: .top
+                        )
+                    }
+                }
+
+//            VStack {
+//                Text("Text")
+//                    .foregroundStyle(.white)
+//            }
+        }
+        .background(.black)
+        .ignoresSafeArea(edges: .top)
+    }
+}
+```
+
+---
+
