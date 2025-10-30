@@ -222,7 +222,7 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
         let summary = snippet.summary.isEmpty ? "-" : snippet.summary
 
         // Create markdown table row with a link to download the file
-        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [📥 Download](./ \(snippet.fileName)) |\n"
+        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [Link](./ \(snippet.fileName)) |\n"
     }
 
     markdown += """
