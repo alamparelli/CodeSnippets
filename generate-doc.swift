@@ -234,8 +234,8 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
 
     ## 📚 Available Snippets
 
-    | Title | Description | Shortcut | Scope | Language | File |
-    |-------|-------------|----------|-------|----------|------|
+    | Title | Description | Scope | Language | File |
+    |-------|-------------|-------|----------|------|
 
     """
 
@@ -292,9 +292,6 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
 
     // Generate a table row for each snippet
     for snippet in sortedSnippets {
-        // Handle empty shortcut with a nice placeholder
-        let shortcut = snippet.completionPrefix.isEmpty ? "-" : "`\(snippet.completionPrefix)`"
-
         // Handle empty summary
         let summary = snippet.summary.isEmpty ? "-" : snippet.summary
 
@@ -306,7 +303,7 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
         let encodedFileName = snippet.fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? snippet.fileName
 
         // Create markdown table row with a link to download the file
-        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(scope) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
+        markdown += "| \(snippet.title) | \(summary) | \(scope) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
     }
 
     markdown += """
