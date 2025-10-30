@@ -234,56 +234,84 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
 
     ## 📚 Available Snippets
 
-    Snippets are organized by their Xcode completion scope for easier navigation.
-
+    | Title | Description | Shortcut | Scope | Language | File |
+    |-------|-------------|----------|-------|----------|------|
 
     """
 
-    // Group snippets by their primary scope
-    let groupedSnippets = Dictionary(grouping: snippets) { $0.primaryScope }
-
-    // Define the order and display names for scopes
-    let scopeOrder: [(key: String, name: String, emoji: String, description: String)] = [
-        ("ClassImplementation", "Class Implementation", "🏗️", "Use these snippets when implementing classes."),
-        ("CodeBlock", "Code Block", "🔧", "Use these snippets within code blocks or functions."),
-        ("All", "General Purpose", "🌐", "Available in all contexts.")
-    ]
-
-    // Generate a section for each scope
-    for (scopeKey, scopeName, emoji, scopeDescription) in scopeOrder {
-        guard let snippetsInScope = groupedSnippets[scopeKey] else { continue }
-
-        markdown += """
-        ### \(emoji) \(scopeName) Snippets
-        \(scopeDescription)
-
-        | Title | Description | Shortcut | Language | File |
-        |-------|-------------|----------|----------|------|
-
-        """
-
-        // Sort snippets alphabetically by title within each scope
-        let sortedSnippets = snippetsInScope.sorted { $0.title < $1.title }
-
-        // Generate a table row for each snippet
-        for snippet in sortedSnippets {
-            // Handle empty shortcut with a nice placeholder
-            let shortcut = snippet.completionPrefix.isEmpty ? "-" : "`\(snippet.completionPrefix)`"
-
-            // Handle empty summary
-            let summary = snippet.summary.isEmpty ? "-" : snippet.summary
-
-            // URL encode the filename for proper GitHub link handling
-            let encodedFileName = snippet.fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? snippet.fileName
-
-            // Create markdown table row with a link to download the file
-            markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
+    // Helper function to get a friendly display name for scope
+    func scopeDisplayName(_ scope: String) -> String {
+        switch scope {
+        case "TopLevel":
+            return "Top Level"
+        case "ClassImplementation":
+            return "Class Implementation"
+        case "CodeBlock":
+            return "Code Block"
+        case "CodeExpression":
+            return "Expression"
+        case "Class":
+            return "Class"
+        case "All":
+            return "All"
+        default:
+            return scope
         }
+    }
 
-        markdown += "\n"
+    // Define scope order for sorting
+    func scopeSortOrder(_ scope: String) -> Int {
+        switch scope {
+        case "All":
+            return 0
+        case "TopLevel":
+            return 1
+        case "ClassImplementation":
+            return 2
+        case "CodeBlock":
+            return 3
+        case "CodeExpression":
+            return 4
+        case "Class":
+            return 5
+        default:
+            return 999
+        }
+    }
+
+    // Sort snippets by scope first, then alphabetically by title within each scope
+    let sortedSnippets = snippets.sorted { snippet1, snippet2 in
+        let scope1Order = scopeSortOrder(snippet1.primaryScope)
+        let scope2Order = scopeSortOrder(snippet2.primaryScope)
+
+        if scope1Order != scope2Order {
+            return scope1Order < scope2Order
+        }
+        return snippet1.title < snippet2.title
+    }
+
+    // Generate a table row for each snippet
+    for snippet in sortedSnippets {
+        // Handle empty shortcut with a nice placeholder
+        let shortcut = snippet.completionPrefix.isEmpty ? "-" : "`\(snippet.completionPrefix)`"
+
+        // Handle empty summary
+        let summary = snippet.summary.isEmpty ? "-" : snippet.summary
+
+        // Get the scope display name
+        let scope = scopeDisplayName(snippet.primaryScope)
+
+        // URL encode the filename for proper GitHub link handling
+        // Replace spaces with %20 and handle other special characters
+        let encodedFileName = snippet.fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? snippet.fileName
+
+        // Create markdown table row with a link to download the file
+        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(scope) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
     }
 
     markdown += """
+
+
     ## 📖 Detailed Documentation
 
     For detailed documentation including the full code of each snippet, see [SNIPPETS.md](./SNIPPETS.md).
