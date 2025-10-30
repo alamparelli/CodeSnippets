@@ -221,8 +221,12 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
         // Handle empty summary
         let summary = snippet.summary.isEmpty ? "-" : snippet.summary
 
+        // URL encode the filename for proper GitHub link handling
+        // Replace spaces with %20 and handle other special characters
+        let encodedFileName = snippet.fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? snippet.fileName
+
         // Create markdown table row with a link to download the file
-        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [Link](./ \(snippet.fileName)) |\n"
+        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
     }
 
     markdown += """
