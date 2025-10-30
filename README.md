@@ -10,7 +10,6 @@ To use these snippets in Xcode:
 2. Place it in: `~/Library/Developer/Xcode/UserData/CodeSnippets/`
 3. Restart Xcode
 4. Type the completion prefix to use the snippet
-   ![Image](./assets/screenshot.png)
 
 ## 📚 Available Snippets
 
