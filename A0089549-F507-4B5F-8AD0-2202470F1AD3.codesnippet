@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>snpt_SoundServiceClass</string>
+	<string>snpt_SoundService class</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>ClassImplementation</string>
@@ -36,7 +36,7 @@ class SoundService {
 	<key>IDECodeSnippetSummary</key>
 	<string>Minimal Sound Service to play a sound</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SoundService</string>
+	<string>Class - SoundService</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

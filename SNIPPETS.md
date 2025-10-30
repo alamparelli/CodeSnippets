@@ -4,7 +4,138 @@ This document contains the full code and details for each snippet.
 
 ---
 
-## Bundle Extension
+## Class - Cache
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_Cache class`  
+**Description:** Small class that implement simple cache  
+**File:** `0AB6FE20-1BE4-44A6-8947-C8C28089EB04.codesnippet`  
+
+```swift
+// Small class that implement simple cache
+
+class Cache<Key: Hashable, Value> {
+    private var storage: [Key: Value] = [:]
+    
+    /// Save a key, value pair into the cache
+    /// - Parameters:
+    ///   - value: Any Hashable
+    ///   - key: Any Type
+    func save(_ value: Value, for key: Key) {
+        storage[key] = value
+    }
+    
+    /// retrieve the value from key
+    /// - Parameter key: Any Hashable
+    /// - Returns: Any Type defined
+    func get(for key: Key) -> Value? {
+        return storage[key]
+    }
+    
+    /// Remove a key, value from cache
+    /// - Parameter key: Any Hashable
+    func remove(for key: Key) {
+        storage[key] = nil
+    }
+    
+    /// Clean the Cache completely
+    func clear() {
+        storage.removeAll()
+    }
+}
+```
+
+---
+
+## Class - Log
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_Log class`  
+**File:** `F77DE186-A636-426A-8CF7-5235A9B82B9D.codesnippet`  
+
+```swift
+class Log<T> {
+    struct Entry {
+        let id: UUID = UUID()
+        let value: T
+        let date: Date = Date()
+    }
+    
+    private var storage: [Entry] = []
+    
+    func log(_ value: T) {
+        let entry = Entry(value: value)
+        storage.append(entry)
+    }
+    
+    func getAllLogs() -> [Entry] {
+        return storage
+    }
+    
+    func clearLogs() {
+        storage.removeAll()
+    }
+}
+```
+
+---
+
+## Class - SoundService
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_SoundService class`  
+**Description:** Minimal Sound Service to play a sound  
+**File:** `A0089549-F507-4B5F-8AD0-2202470F1AD3.codesnippet`  
+
+```swift
+import AVFoundation
+import Foundation
+
+// Require Background Mode in Info.plist : Audio, AirPlay and PIP
+
+class SoundService {
+    var soundPlayer: AVAudioPlayer?
+    
+    func playSound() {
+        guard let path = Bundle.main.path(forResource: "fanfare.mp3", ofType: nil)  else { return }
+        
+        let url = URL(fileURLWithPath: path)
+        do {
+            soundPlayer = try AVAudioPlayer(contentsOf: url)
+            soundPlayer?.play()
+        } catch {
+            print(error)
+        }
+    }
+}
+```
+
+---
+
+## Enum - Secret
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_enum_Secrets`  
+**File:** `D6CF1BC6-F8A8-4ABB-A2C1-12580FD6B8BB.codesnippet`  
+
+```swift
+enum Secrets {
+    static var <#Property#>: String {
+        guard let key = Bundle.main.infoDictionary?[<#API_KEY#>] as? String else {
+            fatalError("Missing <#String#> in Config")
+        }
+        return key
+    }
+}
+
+// You need to create a Secret Config file and add it into Project Configuration
+// content of Sectect config is similar to this
+// WEATHER_API_KEY=Your_Secret_API_key
+```
+
+---
+
+## Extension - Bundle
 
 **Language:** Swift  
 **Completion Shortcut:** `snpt_extension_bundle`  
@@ -48,50 +179,58 @@ extension Bundle {
 
 ---
 
-## Cache class
+## Extension - ShapeStyle Background
 
 **Language:** Swift  
-**Completion Shortcut:** `snpt_Cache class`  
-**Description:** Small class that implement simple cache  
-**File:** `0AB6FE20-1BE4-44A6-8947-C8C28089EB04.codesnippet`  
+**Completion Shortcut:** `snpt_extension_ShapeStyle`  
+**Description:** Extension of ShapeStyle to add Colors.XXX  
+**File:** `F39F3299-917E-4648-B010-3EF0DA654917.codesnippet`  
 
 ```swift
-// Small class that implement simple cache
-
-class Cache<Key: Hashable, Value> {
-    private var storage: [Key: Value] = [:]
-    
-    /// Save a key, value pair into the cache
-    /// - Parameters:
-    ///   - value: Any Hashable
-    ///   - key: Any Type
-    func save(_ value: Value, for key: Key) {
-        storage[key] = value
+extension ShapeStyle where Self == Color {
+    static var darkBackground: Color {
+        Color(red: <#Double#>, green: <#Double#>, blue: <#Double#>)
     }
     
-    /// retrieve the value from key
-    /// - Parameter key: Any Hashable
-    /// - Returns: Any Type defined
-    func get(for key: Key) -> Value? {
-        return storage[key]
-    }
-    
-    /// Remove a key, value from cache
-    /// - Parameter key: Any Hashable
-    func remove(for key: Key) {
-        storage[key] = nil
-    }
-    
-    /// Clean the Cache completely
-    func clear() {
-        storage.removeAll()
+    static var lightBackground: Color {
+        Color(red: <#Double#>, green: <#Double#>, blue: <#Double#>)
     }
 }
 ```
 
 ---
 
-## Decode API Response
+## Extension - UIApplication Release/Build/AppVersion
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_extension_UIApplication`  
+**File:** `215DBE1D-A542-4919-B1A4-1BCE3C4F6292.codesnippet`  
+
+```swift
+import Foundation
+import UIKit
+
+extension UIApplication {
+    static var release: String {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String? ?? "x.x"
+    }
+    static var build: String {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String? ?? "x"
+    }
+    static var version: String {
+        return "\(release).\(build)"
+    }
+}
+
+// USAGE
+// Text("release: \(UIApplication.release)")
+// Text("build: \(UIApplication.build)")
+// Text("version: \(UIApplication.version)")
+```
+
+---
+
+## Function - Decode API Response
 
 **Language:** Swift  
 **Completion Shortcut:** `snpt_decode_api_response`  
@@ -119,7 +258,7 @@ func decodeAPIResponse<T : Codable>(for data: Data) throws -> T {
 
 ---
 
-## DispatchQueueMain
+## Other - DispatchQueueMain
 
 **Language:** Swift  
 **Completion Shortcut:** `snpt_dispatch`  
@@ -133,53 +272,7 @@ DispatchQueue.main.asyncAfter(deadline: .now() + <#Double#>) {
 
 ---
 
-## Enum Secret
-
-**Language:** Swift  
-**Completion Shortcut:** `snpt_enum_Secrets`  
-**File:** `D6CF1BC6-F8A8-4ABB-A2C1-12580FD6B8BB.codesnippet`  
-
-```swift
-import Foundation
-
-enum Secrets {
-    static var <#Property#>: String {
-        guard let key = Bundle.main.infoDictionary?[<#API_KEY#>] as? String else {
-            fatalError("Missing <#String#> in Config")
-        }
-        return key
-    }
-}
-
-// You need to create a Secret Config file and add it into Project Configuration
-// content of Sectect config is similar to this
-// WEATHER_API_KEY=Your_Secret_API_key
-```
-
----
-
-## Extension Background
-
-**Language:** Swift  
-**Completion Shortcut:** `snpt_extension_ShapeStyle`  
-**Description:** Extension of ShapeStyle to add Colors.XXX  
-**File:** `F39F3299-917E-4648-B010-3EF0DA654917.codesnippet`  
-
-```swift
-extension ShapeStyle where Self == Color {
-    static var darkBackground: Color {
-        Color(red: <#Double#>, green: <#Double#>, blue: <#Double#>)
-    }
-    
-    static var lightBackground: Color {
-        Color(red: <#Double#>, green: <#Double#>, blue: <#Double#>)
-    }
-}
-```
-
----
-
-## FaceID
+## Other - FaceID
 
 **Language:** Swift  
 **Completion Shortcut:** `snpt_faceId`  
@@ -246,101 +339,6 @@ struct ContentView: View {
         }
     }
 }
-```
-
----
-
-## Log class
-
-**Language:** Swift  
-**Completion Shortcut:** `snpt_Log class`  
-**File:** `F77DE186-A636-426A-8CF7-5235A9B82B9D.codesnippet`  
-
-```swift
-class Log<T> {
-    struct Entry {
-        let id: UUID = UUID()
-        let value: T
-        let date: Date = Date()
-    }
-    
-    private var storage: [Entry] = []
-    
-    func log(_ value: T) {
-        let entry = Entry(value: value)
-        storage.append(entry)
-    }
-    
-    func getAllLogs() -> [Entry] {
-        return storage
-    }
-    
-    func clearLogs() {
-        storage.removeAll()
-    }
-}
-```
-
----
-
-## SoundService
-
-**Language:** Swift  
-**Completion Shortcut:** `snpt_SoundServiceClass`  
-**Description:** Minimal Sound Service to play a sound  
-**File:** `A0089549-F507-4B5F-8AD0-2202470F1AD3.codesnippet`  
-
-```swift
-import AVFoundation
-import Foundation
-
-// Require Background Mode in Info.plist : Audio, AirPlay and PIP
-
-class SoundService {
-    var soundPlayer: AVAudioPlayer?
-    
-    func playSound() {
-        guard let path = Bundle.main.path(forResource: "fanfare.mp3", ofType: nil)  else { return }
-        
-        let url = URL(fileURLWithPath: path)
-        do {
-            soundPlayer = try AVAudioPlayer(contentsOf: url)
-            soundPlayer?.play()
-        } catch {
-            print(error)
-        }
-    }
-}
-```
-
----
-
-## UIApplication Extension Release/Build/AppVersion
-
-**Language:** Swift  
-**Completion Shortcut:** `snpt_extension_UIApplication`  
-**File:** `215DBE1D-A542-4919-B1A4-1BCE3C4F6292.codesnippet`  
-
-```swift
-import Foundation
-import UIKit
-
-extension UIApplication {
-    static var release: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String? ?? "x.x"
-    }
-    static var build: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String? ?? "x"
-    }
-    static var version: String {
-        return "\(release).\(build)"
-    }
-}
-
-// USAGE
-// Text("release: \(UIApplication.release)")
-// Text("build: \(UIApplication.build)")
-// Text("version: \(UIApplication.version)")
 ```
 
 ---

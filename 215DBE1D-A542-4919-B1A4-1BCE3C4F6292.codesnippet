@@ -35,7 +35,7 @@ extension UIApplication {
 	<key>IDECodeSnippetSummary</key>
 	<string></string>
 	<key>IDECodeSnippetTitle</key>
-	<string>UIApplication Extension Release/Build/AppVersion</string>
+	<string>Extension - UIApplication Release/Build/AppVersion</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

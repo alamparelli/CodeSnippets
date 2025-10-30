@@ -47,10 +47,10 @@ class Cache&lt;Key: Hashable, Value&gt; {
 	<key>IDECodeSnippetSummary</key>
 	<string>Small class that implement simple cache</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Cache class</string>
+	<string>Class - Cache</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

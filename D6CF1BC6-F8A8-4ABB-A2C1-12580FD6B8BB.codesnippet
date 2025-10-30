@@ -9,9 +9,7 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>import Foundation
-
-enum Secrets {
+	<string>enum Secrets {
     static var &lt;#Property#&gt;: String {
         guard let key = Bundle.main.infoDictionary?[&lt;#API_KEY#&gt;] as? String else {
             fatalError("Missing &lt;#String#&gt; in Config")
@@ -30,7 +28,7 @@ enum Secrets {
 	<key>IDECodeSnippetSummary</key>
 	<string></string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Enum Secret</string>
+	<string>Enum - Secret</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

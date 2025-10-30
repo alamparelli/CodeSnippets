@@ -6,7 +6,7 @@
 	<string>snpt_decode_api_response</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
-		<string>CodeBlock</string>
+		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
 	<string>func decodeAPIResponse&lt;T : Codable&gt;(for data: Data) throws -&gt; T {
@@ -33,7 +33,7 @@
 	<key>IDECodeSnippetSummary</key>
 	<string></string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Decode API Response</string>
+	<string>Function - Decode API Response</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

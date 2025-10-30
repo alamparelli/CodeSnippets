@@ -18,6 +18,7 @@ struct CodeSnippet {
     let language: String            // Programming language (e.g., "Swift", "Objective-C")
     let contents: String            // The actual code content of the snippet
     let fileName: String            // The original .codesnippet filename
+    let scopes: [String]            // Completion scopes (e.g., ["ClassImplementation"], ["All"], ["CodeBlock"])
 
     /// Computed property that extracts just the language name without the full Xcode identifier
     /// Example: "Xcode.SourceCodeLanguage.Swift" becomes "Swift"
@@ -33,6 +34,12 @@ struct CodeSnippet {
                !contents.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
                title != "My Code Snippet" // Filter out default templates
     }
+
+    /// Returns the primary scope for categorization purposes
+    /// Uses the first scope in the array, defaulting to "All" if empty
+    var primaryScope: String {
+        return scopes.first ?? "All"
+    }
 }
 
 // MARK: - XML Parser Delegate
@@ -45,6 +52,8 @@ class SnippetParser: NSObject, XMLParserDelegate {
     private var currentElement = ""           // The XML element we're currently parsing
     private var currentKey = ""               // The plist key we're currently reading
     private var currentValue = ""             // Accumulates character data for the current element
+    private var insideArray = false           // Tracks if we're inside an array element
+    private var arrayKey = ""                 // The key associated with the current array
 
     // Storage for extracted snippet data - these will be populated as we parse
     var identifier = ""
@@ -53,6 +62,7 @@ class SnippetParser: NSObject, XMLParserDelegate {
     var completionPrefix = ""
     var language = ""
     var contents = ""
+    var scopes: [String] = []
 
     // MARK: XMLParserDelegate Methods
 
@@ -63,6 +73,12 @@ class SnippetParser: NSObject, XMLParserDelegate {
                 attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
         currentValue = "" // Reset the value accumulator
+
+        // Track when we enter an array
+        if elementName == "array" {
+            insideArray = true
+            arrayKey = currentKey
+        }
     }
 
     /// Called when the parser encounters text content between XML tags
@@ -79,28 +95,40 @@ class SnippetParser: NSObject, XMLParserDelegate {
         // Trim whitespace from the accumulated value
         let trimmedValue = currentValue.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        // Track when we exit an array
+        if elementName == "array" {
+            insideArray = false
+            arrayKey = ""
+        }
         // In plist format, <key> tags tell us what the next <string> value represents
-        if elementName == "key" {
+        else if elementName == "key" {
             currentKey = trimmedValue
         }
         // When we hit a <string> tag, save its content based on the previous <key>
         else if elementName == "string" {
-            switch currentKey {
-            case "IDECodeSnippetIdentifier":
-                identifier = trimmedValue
-            case "IDECodeSnippetTitle":
-                title = trimmedValue
-            case "IDECodeSnippetSummary":
-                summary = trimmedValue
-            case "IDECodeSnippetCompletionPrefix":
-                completionPrefix = trimmedValue
-            case "IDECodeSnippetLanguage":
-                language = trimmedValue
-            case "IDECodeSnippetContents":
-                // For code contents, keep the original formatting (don't trim)
-                contents = currentValue
-            default:
-                break
+            // If we're inside an array, handle array values
+            if insideArray && arrayKey == "IDECodeSnippetCompletionScopes" {
+                scopes.append(trimmedValue)
+            }
+            // Otherwise handle regular key-value pairs
+            else {
+                switch currentKey {
+                case "IDECodeSnippetIdentifier":
+                    identifier = trimmedValue
+                case "IDECodeSnippetTitle":
+                    title = trimmedValue
+                case "IDECodeSnippetSummary":
+                    summary = trimmedValue
+                case "IDECodeSnippetCompletionPrefix":
+                    completionPrefix = trimmedValue
+                case "IDECodeSnippetLanguage":
+                    language = trimmedValue
+                case "IDECodeSnippetContents":
+                    // For code contents, keep the original formatting (don't trim)
+                    contents = currentValue
+                default:
+                    break
+                }
             }
         }
 
@@ -139,7 +167,8 @@ func parseSnippetFile(at url: URL) -> CodeSnippet? {
             completionPrefix: snippetParser.completionPrefix,
             language: snippetParser.language,
             contents: snippetParser.contents,
-            fileName: url.lastPathComponent
+            fileName: url.lastPathComponent,
+            scopes: snippetParser.scopes
         )
 
     } catch {
@@ -205,33 +234,56 @@ func generateReadme(snippets: [CodeSnippet]) -> String {
 
     ## 📚 Available Snippets
 
-    | Title | Description | Shortcut | Language | File |
-    |-------|-------------|----------|----------|------|
+    Snippets are organized by their Xcode completion scope for easier navigation.
+
 
     """
 
-    // Sort snippets alphabetically by title for better readability
-    let sortedSnippets = snippets.sorted { $0.title < $1.title }
+    // Group snippets by their primary scope
+    let groupedSnippets = Dictionary(grouping: snippets) { $0.primaryScope }
 
-    // Generate a table row for each snippet
-    for snippet in sortedSnippets {
-        // Handle empty shortcut with a nice placeholder
-        let shortcut = snippet.completionPrefix.isEmpty ? "-" : "`\(snippet.completionPrefix)`"
+    // Define the order and display names for scopes
+    let scopeOrder: [(key: String, name: String, emoji: String, description: String)] = [
+        ("ClassImplementation", "Class Implementation", "🏗️", "Use these snippets when implementing classes."),
+        ("CodeBlock", "Code Block", "🔧", "Use these snippets within code blocks or functions."),
+        ("All", "General Purpose", "🌐", "Available in all contexts.")
+    ]
 
-        // Handle empty summary
-        let summary = snippet.summary.isEmpty ? "-" : snippet.summary
+    // Generate a section for each scope
+    for (scopeKey, scopeName, emoji, scopeDescription) in scopeOrder {
+        guard let snippetsInScope = groupedSnippets[scopeKey] else { continue }
 
-        // URL encode the filename for proper GitHub link handling
-        // Replace spaces with %20 and handle other special characters
-        let encodedFileName = snippet.fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? snippet.fileName
+        markdown += """
+        ### \(emoji) \(scopeName) Snippets
+        \(scopeDescription)
 
-        // Create markdown table row with a link to download the file
-        markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
+        | Title | Description | Shortcut | Language | File |
+        |-------|-------------|----------|----------|------|
+
+        """
+
+        // Sort snippets alphabetically by title within each scope
+        let sortedSnippets = snippetsInScope.sorted { $0.title < $1.title }
+
+        // Generate a table row for each snippet
+        for snippet in sortedSnippets {
+            // Handle empty shortcut with a nice placeholder
+            let shortcut = snippet.completionPrefix.isEmpty ? "-" : "`\(snippet.completionPrefix)`"
+
+            // Handle empty summary
+            let summary = snippet.summary.isEmpty ? "-" : snippet.summary
+
+            // URL encode the filename for proper GitHub link handling
+            let encodedFileName = snippet.fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? snippet.fileName
+
+            // Create markdown table row with a link to download the file
+            markdown += "| \(snippet.title) | \(summary) | \(shortcut) | \(snippet.languageShort) | [Link](./\(encodedFileName)) |\n"
+        }
+
+        markdown += "\n"
     }
 
     markdown += """
-
-
     ## 📖 Detailed Documentation
 
     For detailed documentation including the full code of each snippet, see [SNIPPETS.md](./SNIPPETS.md).
