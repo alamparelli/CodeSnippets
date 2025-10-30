@@ -48,6 +48,49 @@ extension Bundle {
 
 ---
 
+## Cache class
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_Cache class`  
+**Description:** Small class that implement simple cache  
+**File:** `0AB6FE20-1BE4-44A6-8947-C8C28089EB04.codesnippet`  
+
+```swift
+// Small class that implement simple cache
+
+class Cache<Key: Hashable, Value> {
+    private var storage: [Key: Value] = [:]
+    
+    /// Save a key, value pair into the cache
+    /// - Parameters:
+    ///   - value: Any Hashable
+    ///   - key: Any Type
+    func save(_ value: Value, for key: Key) {
+        storage[key] = value
+    }
+    
+    /// retrieve the value from key
+    /// - Parameter key: Any Hashable
+    /// - Returns: Any Type defined
+    func get(for key: Key) -> Value? {
+        return storage[key]
+    }
+    
+    /// Remove a key, value from cache
+    /// - Parameter key: Any Hashable
+    func remove(for key: Key) {
+        storage[key] = nil
+    }
+    
+    /// Clean the Cache completely
+    func clear() {
+        storage.removeAll()
+    }
+}
+```
+
+---
+
 ## Decode API Response
 
 **Language:** Swift  
@@ -201,6 +244,39 @@ struct ContentView: View {
         } else {
             authenticateWithPassword()
         }
+    }
+}
+```
+
+---
+
+## Log class
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_Log class`  
+**File:** `F77DE186-A636-426A-8CF7-5235A9B82B9D.codesnippet`  
+
+```swift
+class Log<T> {
+    struct Entry {
+        let id: UUID = UUID()
+        let value: T
+        let date: Date = Date()
+    }
+    
+    private var storage: [Entry] = []
+    
+    func log(_ value: T) {
+        let entry = Entry(value: value)
+        storage.append(entry)
+    }
+    
+    func getAllLogs() -> [Entry] {
+        return storage
+    }
+    
+    func clearLogs() {
+        storage.removeAll()
     }
 }
 ```

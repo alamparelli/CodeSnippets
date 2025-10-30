@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_Cache class</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Small class that implement simple cache
+
+class Cache&lt;Key: Hashable, Value&gt; {
+    private var storage: [Key: Value] = [:]
+    
+    /// Save a key, value pair into the cache
+    /// - Parameters:
+    ///   - value: Any Hashable
+    ///   - key: Any Type
+    func save(_ value: Value, for key: Key) {
+        storage[key] = value
+    }
+    
+    /// retrieve the value from key
+    /// - Parameter key: Any Hashable
+    /// - Returns: Any Type defined
+    func get(for key: Key) -&gt; Value? {
+        return storage[key]
+    }
+    
+    /// Remove a key, value from cache
+    /// - Parameter key: Any Hashable
+    func remove(for key: Key) {
+        storage[key] = nil
+    }
+    
+    /// Clean the Cache completely
+    func clear() {
+        storage.removeAll()
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>0AB6FE20-1BE4-44A6-8947-C8C28089EB04</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Small class that implement simple cache</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Cache class</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
