@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_extension_bundle</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>extension Bundle {
+    func decode&lt;T: Codable&gt;(_ file: String) -&gt; T {
+        guard let url = self.url(forResource: file, withExtension: nil) else {
+            fatalError("Failed to locate \(file) in bundle")
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            fatalError("Failed to load \(file) from bundle")
+        }
+        
+        let decoder = JSONDecoder()
+        
+        // This should be probably changed if another situation
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch DecodingError.keyNotFound(let key, let context) {
+            fatalError("Failed to decode \(file) from bundle due to missing key \(key.stringValue) in \(context.debugDescription)")
+        } catch DecodingError.typeMismatch(_ , let context) {
+            fatalError("Failed to decode \(file) from bundle due to type mismatch - \(context.debugDescription)")
+        } catch DecodingError.valueNotFound(let type, let context) {
+            fatalError("Failed to decode \(file) from bundle due to missing some \(type) value - \(context.debugDescription)")
+        } catch DecodingError.dataCorrupted(_) {
+            fatalError("Failed to decode \(file) from bundle because it appears to be invalid JSON")
+        } catch {
+            fatalError("Failed to decode \(file) from bundle : \(error.localizedDescription)")
+        }
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A3B3B53F-DEAD-4561-803F-E3812463D56C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Extension of Bundle to read any Type of Json</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Bundle Extension</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

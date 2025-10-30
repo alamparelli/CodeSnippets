@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_extension_ShapeStyle</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>extension ShapeStyle where Self == Color {
+    static var darkBackground: Color {
+        Color(red: &lt;#Double#&gt;, green: &lt;#Double#&gt;, blue: &lt;#Double#&gt;)
+    }
+    
+    static var lightBackground: Color {
+        Color(red: &lt;#Double#&gt;, green: &lt;#Double#&gt;, blue: &lt;#Double#&gt;)
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F39F3299-917E-4648-B010-3EF0DA654917</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Extension of ShapeStyle to add Colors.XXX</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Extension Background</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

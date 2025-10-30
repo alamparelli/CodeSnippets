@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_SoundServiceClass</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import AVFoundation
+import Foundation
+
+// Require Background Mode in Info.plist : Audio, AirPlay and PIP
+
+class SoundService {
+    var soundPlayer: AVAudioPlayer?
+    
+    func playSound() {
+        guard let path = Bundle.main.path(forResource: "fanfare.mp3", ofType: nil)  else { return }
+        
+        let url = URL(fileURLWithPath: path)
+        do {
+            soundPlayer = try AVAudioPlayer(contentsOf: url)
+            soundPlayer?.play()
+        } catch {
+            print(error)
+        }
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A0089549-F507-4B5F-8AD0-2202470F1AD3</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Minimal Sound Service to play a sound</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SoundService</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

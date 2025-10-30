@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_faceId</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import LocalAuthentication
+import SwiftUI
+
+struct ContentView: View {
+    @State private var isUnlocked = false
+    @State private var showUnableToLogin = false
+
+    var body: some View {
+        VStack {
+            if isUnlocked {
+                Text(&lt;#"Unlocked"#&gt;)
+            } else {
+                Text("Locked")
+            }
+        }
+        .onAppear(perform: authenticate)
+        .alert(isPresented: $showUnableToLogin) {
+            Alert(title: Text("Unable to Login"),
+                  message: Text("We are unable to log you in."),
+                  dismissButton: .default(Text("Got it!"))
+            )
+        }
+    }
+    
+    func authenticateWithPassword() {
+        let context = LAContext()
+        var error: NSError?
+        
+        let reason = "We need to unlock your data"
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &amp;error) {
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+                if success  {
+                    isUnlocked = true
+                } else {
+                    showUnableToLogin = true
+                }
+            }
+        }
+    }
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometricsOrCompanion, error: &amp;error) {
+            let reason = "We need to unlock your data"
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometricsOrCompanion, localizedReason: reason) { success, authenticationError in
+                if success  {
+                    isUnlocked = true
+                } else {
+                    authenticateWithPassword()
+                }
+            }
+        } else {
+            authenticateWithPassword()
+        }
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>73075DBD-86B2-4B13-ADE1-79DE0588CB57</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>FaceID</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
