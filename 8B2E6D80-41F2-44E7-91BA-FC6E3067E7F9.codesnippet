@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_extension_view_template</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>extension &lt;#View#&gt; {
+    func &lt;#functionName#&gt;(&lt;#args#&gt;) -&gt; some View {
+        &lt;#something#&gt;
+        return self&lt;#something#&gt;
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>8B2E6D80-41F2-44E7-91BA-FC6E3067E7F9</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>base template for an Extension</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Extension - View - Template</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

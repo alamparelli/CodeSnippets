@@ -16,6 +16,7 @@ To use these snippets in Xcode:
 | Title | Description | Scope | Language | File |
 |-------|-------------|-------|----------|------|
 | Enum - Secret | - | All | Swift | [Link](./D6CF1BC6-F8A8-4ABB-A2C1-12580FD6B8BB.codesnippet) |
+| Extension - View - Template | base template for an Extension | All | Swift | [Link](./8B2E6D80-41F2-44E7-91BA-FC6E3067E7F9.codesnippet) |
 | Function - Decode API Response | - | All | Swift | [Link](./5CD2A3FB-7704-4990-BF23-520F96320D35.codesnippet) |
 | Other - DispatchQueueMain | - | All | Swift | [Link](./6705E353-8DDE-4CFF-862F-2217E007C3E2.codesnippet) |
 | SwiftData - Store Color | Exemple of storing a color in SwiftData | All | Swift | [Link](./D7134E08-B0DF-4E84-95FE-A39DBFC6943E.codesnippet) |

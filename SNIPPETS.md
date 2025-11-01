@@ -230,6 +230,24 @@ extension UIApplication {
 
 ---
 
+## Extension - View - Template
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_extension_view_template`  
+**Description:** base template for an Extension  
+**File:** `8B2E6D80-41F2-44E7-91BA-FC6E3067E7F9.codesnippet`  
+
+```swift
+extension <#View#> {
+    func <#functionName#>(<#args#>) -> some View {
+        <#something#>
+        return self<#something#>
+    }
+}
+```
+
+---
+
 ## Function - Decode API Response
 
 **Language:** Swift  
