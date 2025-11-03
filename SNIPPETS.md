@@ -80,6 +80,89 @@ class Log<T> {
 
 ---
 
+## Class - NavigationService
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_class_navigation`  
+**Description:** Navigation Class  
+**File:** `547DEF76-9566-4645-B210-8632381165A8.codesnippet`  
+
+```swift
+import SwiftUI
+
+enum Destination: Hashable {
+    case main
+    case settings
+    // fill other depending your needs
+}
+
+@Observable
+class NavigationService {
+    var path = NavigationPath()
+    
+    @ViewBuilder
+    func returnView(_ destination : Destination) -> some View {
+        switch destination {
+        case .main:
+            MainView()
+        case .settings:
+            SettingsView()
+        //fill depending Enum definition above
+        }
+    }
+    
+    func navigate(to destination: Destination) {
+        path.append(destination)
+    }
+    
+    func pop() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+    
+    func popToRoot() {
+        path = NavigationPath()
+    }
+}
+
+/// Usage
+/// In App.swift
+/// Not needed to add NavigationStack in sub views
+/* SETUP
+ import SwiftUI
+
+ @main
+ struct App: App {
+     @State private var navigation = NavigationService()
+     
+     var body: some Scene {
+         WindowGroup {
+             NavigationStack(path: $navigation.path) {
+                 ContentView()
+                     .navigationDestination(for: Destination.self) { destination in
+                         navigation.returnView(destination)
+                     }
+                 }
+                 .environment(navigation)
+         }
+     }
+ }
+*/
+
+/* USAGE on subViews
+ Button("Main") {
+    navigation.navigate(to: Destination.main)
+ }
+
+ NavigationLink(value: Destination.main) {
+     Text("Main")
+ }
+*/
+```
+
+---
+
 ## Class - SoundService
 
 **Language:** Swift  
@@ -372,6 +455,30 @@ struct ContentView: View {
         }
     }
 }
+```
+
+---
+
+## Other - Timer
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_other_timer`  
+**Description:** Small Snippet to create a TImer on a view  
+**File:** `B546DEBB-314A-42FB-95E2-4B586690CEDD.codesnippet`  
+
+```swift
+    // create Timer
+    @State private var timeRemaining = 100
+    let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
+    
+    // on View
+    .onReceive(timer) { time in
+        guard isActive else { return }
+        
+        if timeRemaining > 0 {
+            timeRemaining -= 1
+        }
+    }
 ```
 
 ---

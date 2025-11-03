@@ -3,26 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>snpt_extension_view_template</string>
+	<string>snpt_other_timer</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>extension &lt;#View#&gt; {
-    func &lt;#functionName#&gt;(&lt;#args#&gt;) -&gt; some View {
-        &lt;#something#&gt;
-        return self&lt;#something#&gt;
-    }
-}</string>
+	<string>    // create Timer
+    @State private var timeRemaining = 100
+    let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
+    
+    // on View
+    .onReceive(timer) { time in
+        guard isActive else { return }
+        
+        if timeRemaining &gt; 0 {
+            timeRemaining -= 1
+        }
+    }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>8B2E6D80-41F2-44E7-91BA-FC6E3067E7F9</string>
+	<string>B546DEBB-314A-42FB-95E2-4B586690CEDD</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>base template for an Extension</string>
+	<string>Small Snippet to create a TImer on a view</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>Extension - View - Template</string>
+	<string>Other - Timer</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

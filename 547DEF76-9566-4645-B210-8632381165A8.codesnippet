@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_class_navigation</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import SwiftUI
+
+enum Destination: Hashable {
+    case main
+    case settings
+    // fill other depending your needs
+}
+
+@Observable
+class NavigationService {
+    var path = NavigationPath()
+    
+    @ViewBuilder
+    func returnView(_ destination : Destination) -&gt; some View {
+        switch destination {
+        case .main:
+            MainView()
+        case .settings:
+            SettingsView()
+        //fill depending Enum definition above
+        }
+    }
+    
+    func navigate(to destination: Destination) {
+        path.append(destination)
+    }
+    
+    func pop() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
+    
+    func popToRoot() {
+        path = NavigationPath()
+    }
+}
+
+/// Usage
+/// In App.swift
+/// Not needed to add NavigationStack in sub views
+/* SETUP
+ import SwiftUI
+
+ @main
+ struct App: App {
+     @State private var navigation = NavigationService()
+     
+     var body: some Scene {
+         WindowGroup {
+             NavigationStack(path: $navigation.path) {
+                 ContentView()
+                     .navigationDestination(for: Destination.self) { destination in
+                         navigation.returnView(destination)
+                     }
+                 }
+                 .environment(navigation)
+         }
+     }
+ }
+*/
+
+/* USAGE on subViews
+ Button("Main") {
+    navigation.navigate(to: Destination.main)
+ }
+
+ NavigationLink(value: Destination.main) {
+     Text("Main")
+ }
+*/</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>547DEF76-9566-4645-B210-8632381165A8</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Navigation Class </string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Class - NavigationService</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
