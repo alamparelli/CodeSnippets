@@ -19,8 +19,8 @@
 }
 
 // You need to create a Secret Config file and add it into Project Configuration
-// content of Sectect config is similar to this
-// WEATHER_API_KEY=Your_Secret_API_key</string>
+// content of Secrect config is similar to this
+// API_KEY=Your_Secret_API_key</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>D6CF1BC6-F8A8-4ABB-A2C1-12580FD6B8BB</string>
 	<key>IDECodeSnippetLanguage</key>

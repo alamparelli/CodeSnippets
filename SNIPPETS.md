@@ -150,7 +150,7 @@ class NavigationService {
  }
 */
 
-/* USAGE on subViews
+/* USAGE on sub Views
  Button("Main") {
     navigation.navigate(to: Destination.main)
  }
@@ -212,8 +212,8 @@ enum Secrets {
 }
 
 // You need to create a Secret Config file and add it into Project Configuration
-// content of Sectect config is similar to this
-// WEATHER_API_KEY=Your_Secret_API_key
+// content of Secrect config is similar to this
+// API_KEY=Your_Secret_API_key
 ```
 
 ---

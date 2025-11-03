@@ -71,7 +71,7 @@ class NavigationService {
  }
 */
 
-/* USAGE on subViews
+/* USAGE on sub Views
  Button("Main") {
     navigation.navigate(to: Destination.main)
  }
