@@ -6,6 +6,7 @@
 	<string>snpt_class_SimpleDatabaseFile</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
+		<string>TopLevel</string>
 		<string>ClassImplementation</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
