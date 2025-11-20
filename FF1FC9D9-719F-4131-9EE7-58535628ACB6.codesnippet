@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snpt_class_SimpleDatabaseFile</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import SwiftUI
+
+@Observable
+class SimpleDatabaseFile&lt;T: Codable &amp; Hashable&gt;  {
+    private var database: Set&lt;T&gt;
+    
+    let encoder = JSONEncoder()
+    let decoder = JSONDecoder()
+    private let savePath: URL
+    
+    init(key: String, database: Set&lt;T&gt; = []) {
+        self.savePath = URL.documentsDirectory.appending(path: "\(key)-DatabaseFile")
+        self.database = database
+        
+        if let data = try? Data(contentsOf: savePath) {
+            if let decoded = try? decoder.decode(Set&lt;T&gt;.self, from: data) {
+                self.database = decoded
+            }
+        }
+    }
+    
+    func contains(_ item: T) -&gt; Bool {
+        database.contains(item)
+    }
+    
+    func add(_ item: T){
+        database.insert(item)
+        save()
+    }
+    
+    func remove(_ item: T){
+        database.remove(item)
+        save()
+    }
+    
+    func save() {
+        do {
+            let data = try encoder.encode(database)
+            try data.write(to: savePath)
+        } catch {
+            print("Failed to save to pathfile \(savePath)")
+        }
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>FF1FC9D9-719F-4131-9EE7-58535628ACB6</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Class - SimpleDatabaseFile</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

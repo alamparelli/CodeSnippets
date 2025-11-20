@@ -163,6 +163,61 @@ class NavigationService {
 
 ---
 
+## Class - SimpleDatabaseFile
+
+**Language:** Swift  
+**Completion Shortcut:** `snpt_class_SimpleDatabaseFile`  
+**File:** `FF1FC9D9-719F-4131-9EE7-58535628ACB6.codesnippet`  
+
+```swift
+import SwiftUI
+
+@Observable
+class SimpleDatabaseFile<T: Codable & Hashable>  {
+    private var database: Set<T>
+    
+    let encoder = JSONEncoder()
+    let decoder = JSONDecoder()
+    private let savePath: URL
+    
+    init(key: String, database: Set<T> = []) {
+        self.savePath = URL.documentsDirectory.appending(path: "\(key)-DatabaseFile")
+        self.database = database
+        
+        if let data = try? Data(contentsOf: savePath) {
+            if let decoded = try? decoder.decode(Set<T>.self, from: data) {
+                self.database = decoded
+            }
+        }
+    }
+    
+    func contains(_ item: T) -> Bool {
+        database.contains(item)
+    }
+    
+    func add(_ item: T){
+        database.insert(item)
+        save()
+    }
+    
+    func remove(_ item: T){
+        database.remove(item)
+        save()
+    }
+    
+    func save() {
+        do {
+            let data = try encoder.encode(database)
+            try data.write(to: savePath)
+        } catch {
+            print("Failed to save to pathfile \(savePath)")
+        }
+    }
+}
+```
+
+---
+
 ## Class - SoundService
 
 **Language:** Swift  

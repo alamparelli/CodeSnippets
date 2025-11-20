@@ -30,6 +30,7 @@ To use these snippets in Xcode:
 | Extension - UIApplication Release/Build/AppVersion | - | Top Level | Swift | [Link](./215DBE1D-A542-4919-B1A4-1BCE3C4F6292.codesnippet) |
 | Other - FaceID | - | Top Level | Swift | [Link](./73075DBD-86B2-4B13-ADE1-79DE0588CB57.codesnippet) |
 | View - ImageBlurredView | ScrollView with Blurred Image at Top | Top Level | Swift | [Link](./4FC71F07-6ECD-4049-A3FF-E9AB4202D9A8.codesnippet) |
+| Class - SimpleDatabaseFile | - | Class Implementation | Swift | [Link](./FF1FC9D9-719F-4131-9EE7-58535628ACB6.codesnippet) |
 | Other - Comparable | Static Function | Class Implementation | Swift | [Link](./B8CDA363-C615-4855-ADBD-6E9CC6D9346C.codesnippet) |
 
 
